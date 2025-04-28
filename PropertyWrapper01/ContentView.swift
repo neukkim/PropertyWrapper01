@@ -27,7 +27,6 @@ struct ContentView: View {
                     .padding()
                 Button(action: {
                     count = count + 1
-//                    appTitle = "빡코딩의 일땅 \(count)"
                 }, label: {
                     Text("카운트 업!")
                         .foregroundStyle(.white)
@@ -36,17 +35,23 @@ struct ContentView: View {
                         .cornerRadius(10.0)
                 })
             }
-            .tabItem { Label("오늘도ㅎ", image: "pencil")}
-            
-            Text("자기전에!!!")
-                .padding()
-                .tabItem { Label("자기전에ㅎ", image: "pencil.circle")}
-            
-            Text("주말에도!!!")
-                .padding()
-                .tabItem { Label("주말에도ㅎ", image: "pencil.circle.fill")}
+            .tabItem {
+                Label("오늘", systemImage: "pencil.circle")  // 시스템 아이콘 사용
+            }
+
+            //BeforeBedView 바인딩 count에
+            //ContentView count를 넘겨 주겠다.
+            BeforeBedView(count: $count)
+                .tabItem {
+                    Label("자기전", systemImage: "eraser.line.dashed.fill")
+                }
+            WeeklyView()
+                .tabItem {
+                    Label("주말에", systemImage: "pencil.tip.crop.circle.fill")
+                }
             
         }
+        .overlay(Text(appTitle).offset(y: (-UIScreen.main.bounds.height * 0.4)))
     }
 }
 
