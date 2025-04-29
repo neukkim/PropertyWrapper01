@@ -6,3 +6,6 @@
 @Binding    
 @EnviromentObject
 ...
+
+참고 영상:
+https://www.youtube.com/watch?v=1BjRFQCROoM&t=1234s
