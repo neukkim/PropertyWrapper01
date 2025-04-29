@@ -9,6 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     
+    //    @State var appTitle: String = "빡코딩의 일땅"
+    @State var appTitle: String = ""
+    
+    @EnvironmentObject var viewModel: MyViewModel
+    // MyViewModel 에서 @Published var appTitle 를 가져 오기 위한 작업
+    // 라인 63: onReceive 에 반영
+    
 //    var count = 0
     @State var count = 0
 // count에 "@State 미사용시
@@ -16,7 +23,7 @@ struct ContentView: View {
 // "Cannot assign to property: 'self' is immutable" 에러 메세지 노출
     
     
-    @State var appTitle: String = "빡코딩의 일땅"
+
     
     var body: some View {
         
@@ -27,6 +34,7 @@ struct ContentView: View {
                     .padding()
                 Button(action: {
                     count = count + 1
+                    viewModel.appTitle = "빡코딩의 일상 \(count)"
                 }, label: {
                     Text("카운트 업!")
                         .foregroundStyle(.white)
@@ -52,11 +60,15 @@ struct ContentView: View {
             
         }
         .overlay(Text(appTitle).offset(y: (-UIScreen.main.bounds.height * 0.4)))
+        .onReceive(viewModel.$appTitle, perform: { receivedAppTitle in
+            print("receive 됨 + \(count)")
+            appTitle = receivedAppTitle})
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(MyViewModel())
 }
 
 
